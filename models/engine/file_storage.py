@@ -3,6 +3,8 @@
 import json
 from models.state import State
 
+states = {'State': State}
+
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
@@ -10,10 +12,10 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        objects = self.__objects
+        objs = self.__objects
         cls_dict = {}
         if cls:
-            for key, val in objects.items():
+            for key, val in objs.items():
                 cls_details = key.strip('"')
                 cls_name, id = cls_details.split('.')
                 if (cls_name == states[cls_name].__name__):
