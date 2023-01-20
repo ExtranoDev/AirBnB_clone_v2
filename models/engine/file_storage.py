@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 """This module defines a class to manage file storage for hbnb clone"""
 import json
-from models.state import State
-
-states = {'State': State}
 
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
@@ -12,18 +9,13 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
-        objs = self.__objects
-        cls_dict = {}
         if cls:
-            for key, val in objs.items():
-                cls_details = key.strip('"')
-                cls_name, id = cls_details.split('.')
-                if (cls_name == states[cls_name].__name__):
+            cls_dict = {}
+            for key, val in FileStorage.__objects.items():
+                if val.__class__ == cls:
                     cls_dict[key] = val
-            return (cls_dict)
-        else:
-            return self.__objects
-        return (self.__objects)
+            return cls_dict
+        return FileStorage.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
