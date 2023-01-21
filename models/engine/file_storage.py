@@ -49,8 +49,8 @@ class FileStorage:
             # temp = {}
             with open(FileStorage.__file_path, 'r') as f:
                 try:
-                    FileStorage.__objects = json.load(f)
-                    for key, val in FileStorage.__objects.items():
+                    temp = json.load(f)
+                    for key, val in temp.items():
                         self.all()[key] = classes[val['__class__']](**val)
                 except Exception:
                     pass
@@ -63,8 +63,4 @@ class FileStorage:
         if obj is not None:
             key = '.'.join([type(obj).__name__, obj.id])
             if key in FileStorage.__objects.keys():
-                del FileStorage.__objects.keys()
-
-    def close(self):
-        """call reload() method """
-        self.reload()
+                del FileStorage.__objects[key]
