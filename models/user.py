@@ -5,7 +5,7 @@ from sqlalchemy import Column, String
 from os import getenv
 
 
-class User(BaseModel):
+class User(BaseModel, Base):
     """This class defines a user by various attributes"""
     if getenv("HBNB_TYPE_STORAGE") == 'db':
         __tablename__ = 'users'
